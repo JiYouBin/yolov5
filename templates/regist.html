@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+	<title>yolo</title>
+
+    <script>
+        async function submitForm() {
+            try {
+                // 여기에서 form 데이터를 가져와서 서버로 전송
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(new FormData(document.getElementById('your-form-id'))),
+                });
+
+                // 서버 응답 처리
+                const result = await response.json();
+                
+                // 성공한 경우
+                alert('회원가입 되셨습니다.');
+                window.location.href = "/login";
+            } catch (error) {
+                // 실패한 경우
+                alert('다시 확인해 주세요.');
+            }
+        }
+    </script>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="card">
+        <!--상단타이틀-->
+        <div class="card-header">
+            <h2>Regist</h2>
+        </div>
+        <div class="card-body">
+            <form id="your-form-id" action="/register" method="post">
+                <div class="form-group col-md-6">
+                    
+                    <input type="text" class="form-control" name="id" required placeholder="id">
+                </div>
+                <div class="form-group col-md-6">
+                    
+                    <input type="text" class="form-control" name="username" required placeholder="name">
+                </div>
+                <div class="form-group col-md-6">
+                    
+                    <input type="password" class="form-control" name="password" required placeholder="password">
+                </div>
+                <div class="form-group col-md-6">
+                    
+                    <input type="text" class="form-control" name="phone_number" required placeholder="phone_number">
+                </div>
+                <button type="submit" onclick="submitForm()" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+        <!--가입되어있으면 로그인 화면으로-->
+        <div class="card-footer text-muted">
+            <a href="/login">아이디가 있으신가요?</a>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

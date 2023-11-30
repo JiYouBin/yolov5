@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.video{
+    background-color: #ebecf0;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+
+}

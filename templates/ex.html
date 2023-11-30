@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', path='info.css') }}">
+    <title>Live Video Streaming</title>
+
+</head>
+<body>
+    <div class="video">
+    <div>
+        <h1>Live Video Streaming</h1>
+        <h2></h2>
+        <img style="position: center;" id="video" width="640" height="480" src="/video_feed" alt="Live Video">
+    </div>
+    
+    <h2 id="alert" src="/api/json_data">대기 중</h2>
+    </div>
+    <script>
+        var alertElement = document.getElementById('alert');
+
+        // Create a new EventSource for the /api/json_data endpoint
+        var eventSource = new EventSource("/api/json_data");
+
+        // Event listener for messages from the server
+        eventSource.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+
+            // Update alert based on detection
+            if (data.nms_human > 0) {
+                alertElement.textContent = '사람이 감지되었습니다!';
+                alertElement.style.color = 'red';
+            } else {
+                alertElement.textContent = '감지된 사람이 없습니다.';
+                alertElement.style.color = 'green';
+            }
+
+        };
+
+    </script>
+</body>
+</html>
